@@ -13,6 +13,7 @@ import { Response } from 'express';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { FilterPropertiesPipe } from 'src/common/pipes/filter-properties.pipe';
+import { LoginDto } from './dto/login.dto';
 
 @Controller('/api/users')
 export class UsersController {
@@ -27,6 +28,12 @@ export class UsersController {
             if (newUser) { res.status(HttpStatus.CREATED).send(newUser) } 
             else { res.status(HttpStatus.CONFLICT).send({ message: 'User already exists' }) }
         } catch (error) { res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ message: `Internal server error: \n THE ERROR: ${error}` }) }
+    }
+
+    @Post('/api/users/login')
+    @UsePipes(new FilterPropertiesPipe(['username', 'password']))
+    async login(@Body() req: LoginDto, @Res() res: Response) {
+
     }
 
     @Delete(':id')

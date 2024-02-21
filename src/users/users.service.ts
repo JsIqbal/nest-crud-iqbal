@@ -13,4 +13,8 @@ export class UsersService {
   async deleteUser(id: string) {
     return this.userRepo.delete(id);
   }
+
+  async findUserByUsername(username: string) {
+    return this.userRepo.findByUsername(username);
+  }
 }

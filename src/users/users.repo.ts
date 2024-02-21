@@ -48,4 +48,12 @@ export class UsersRepo {
         Logger.log(`User deleted: ${JSON.stringify(user)}`);
         return user;
     }
+
+    async findByUsername(username: string) {
+        const user = await this.usersRepository.findOne({where: {username}})
+
+        if(!user) null 
+
+        return user;
+    }
 }
